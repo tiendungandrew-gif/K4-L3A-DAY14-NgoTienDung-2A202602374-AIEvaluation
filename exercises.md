@@ -170,31 +170,32 @@ và quyết định thiết kế, không chép lại toàn bộ QA.
 
 | Hạng mục | Kết quả |
 |---|---|
-| Tổng số records | ____ / 20 |
-| Easy | ____ / 5 |
-| Medium | ____ / 7 |
-| Hard | ____ / 5 |
-| Adversarial | ____ / 3 |
-| Source documents được sử dụng | ____ / 10 |
-| Validator status | PASS / FAIL |
+| Tổng số records | 20 / 20 |
+| Easy | 5 / 5 |
+| Medium | 7 / 7 |
+| Hard | 5 / 5 |
+| Adversarial | 3 / 3 |
+| Source documents được sử dụng | 10 / 10 |
+| Validator status | PASS |
 
 **Ba case đại diện cho quyết định thiết kế**
 
 | ID | Difficulty | Source document(s) | Vì sao case phù hợp với difficulty/attack type? |
 |---|---|---|---|
-| | | | |
-| | | | |
-| | | | |
+| M01 | Medium | `01_product_catalog.md`, `05_returns_and_exchanges.md` | Kết hợp thông tin tính năng kỹ thuật của tai nghe AeroBuds Pro (yêu cầu app OrbitLink) với chính sách đổi trả phụ kiện vệ sinh (hygiene accessories) từ tài liệu riêng biệt, kiểm tra khả năng multi-document retrieval. |
+| H04 | Hard | `09_escalation_and_policy_updates.md`, `05_returns_and_exchanges.md` | Đòi hỏi xử lý logic đa điều kiện: phân xử phiên bản chính sách (Version 1.0 vs 2.0) dựa trên ngày đặt hàng (trước 01/09/2026), tính ngày từ lúc nhận hàng, và phân tích xem quyền lợi gia hạn của OrbitPlus có áp dụng hồi tố cho đơn hàng cũ hay không. |
+| A03 | Adversarial | `00_system_scope.md`, `02_orders_and_payments.md`, `06_warranty_policy.md` | Cài cắm tiền đề sai nghiêm trọng (false premise: "bảo hành trọn đời" và "hoàn tiền mặt thẻ quà tặng"). Trợ lý phải phát hiện premise sai, dẫn chứng đúng thời hạn 24 tháng và quy tắc hoàn thẻ quà tặng thay thế, đồng thời tuân thủ scope không được tự ý hứa hẹn ngoại lệ. |
 
 **Điểm khó nhất khi xây dựng expected answer hoặc evidence là gì?**
 
 > *Câu trả lời:*
+> Điểm thách thức nhất là đảm bảo tính toàn vẹn và bằng chứng xác thực (provenance): mọi câu chữ trong expected answer phải được bảo vệ chặt chẽ bởi các trích dẫn nguyên văn (*verbatim substring*) từ tài liệu nguồn. Nếu trích đoạn quá dài sẽ gây nhiễu context precision, nhưng nếu trích quá ngắn thì có nguy cơ bỏ sót các điều kiện biên quan trọng (như mốc thời gian chuyển giao phiên bản chính sách ngày 01/09/2026, các ngoại lệ loại trừ phí hay ranh giới thẩm quyền của trợ lý CSKH).
 
 **Xác nhận:**
 
-- [ ] Mọi claim trong expected answer đều có evidence hỗ trợ.
-- [ ] Không có questions trùng ý và không dùng kiến thức ngoài corpus.
-- [ ] `python validate_golden_dataset.py` báo `PASS`.
+- [x] Mọi claim trong expected answer đều có evidence hỗ trợ.
+- [x] Không có questions trùng ý và không dùng kiến thức ngoài corpus.
+- [x] `python validate_golden_dataset.py` báo `PASS`.
 
 ### Exercise 3.2 — Benchmark Run
 
